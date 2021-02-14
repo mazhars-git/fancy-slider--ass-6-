@@ -1,3 +1,11 @@
+//input search by EnterKey even handler----
+document.getElementById('search')
+.addEventListener('keypress', function(event){
+  if (event.key === 'Enter') {
+    document.getElementById('search-btn').click();
+  }
+})
+
 const imagesArea = document.querySelector('.images');
 const gallery = document.querySelector('.gallery');
 const galleryHeader = document.querySelector('.gallery-header');
@@ -6,7 +14,6 @@ const sliderBtn = document.getElementById('create-slider');
 const sliderContainer = document.getElementById('sliders');
 // selected image 
 let sliders = [];
-
 
 // If this key doesn't work
 // Find the name in the url and go to their website
@@ -38,14 +45,16 @@ const getImages = (query) => {
 let slideIndex = 0;
 const selectItem = (event, img) => {
   let element = event.target;
-  element.classList.add('added');
+  element.classList.toggle('added');
  
   let item = sliders.indexOf(img);
+  
   if (item === -1) {
     sliders.push(img);
   } else {
-    alert('Hey, Already added !')
+    sliders.splice(item, 1);
   }
+  
 }
 var timer
 const createSlider = () => {
