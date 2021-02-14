@@ -32,14 +32,15 @@ const showImages = (images) => {
     div.innerHTML = ` <img class="img-fluid img-thumbnail" onclick=selectItem(event,"${image.webformatURL}") src="${image.webformatURL}" alt="${image.tags}">`;
     gallery.appendChild(div)
   })
-
+  showSpinner();
 }
 
 const getImages = (query) => {
+  showSpinner();
   fetch(`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
     .then(response => response.json())
     .then(data => showImages(data.hits))
-    .catch(err => console.log(err))
+    .catch(err => console.log(err));
 }
 
 let slideIndex = 0;
@@ -133,3 +134,12 @@ searchBtn.addEventListener('click', function () {
 sliderBtn.addEventListener('click', function () {
   createSlider()
 })
+
+//spinner --------------
+const showSpinner = () =>{
+  const spinner = document.getElementById('spinner-item');
+  spinner.classList.toggle('d-none');
+  const images = document.getElementById('slider-image');
+  images.classList.toggle('d-none');
+}
+
