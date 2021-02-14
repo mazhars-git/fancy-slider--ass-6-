@@ -1,10 +1,10 @@
 //input search by EnterKey even handler----
 document.getElementById('search')
-.addEventListener('keypress', function(event){
-  if (event.key === 'Enter') {
-    document.getElementById('search-btn').click();
-  }
-})
+  .addEventListener('keypress', function (event) {
+    if (event.key === 'Enter') {
+      document.getElementById('search-btn').click();
+    }
+  })
 
 const imagesArea = document.querySelector('.images');
 const gallery = document.querySelector('.gallery');
@@ -40,22 +40,29 @@ const getImages = (query) => {
   fetch(`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
     .then(response => response.json())
     .then(data => showImages(data.hits))
-    .catch(err => console.log(err));
+    .catch(error => displayError('Something went wrong!!'));
+}
+
+//error event
+const displayError = error => {
+  const errorTag = document.getElementById('error-text');
+  errorTag.innerText = error;
+  showSpinner();
 }
 
 let slideIndex = 0;
 const selectItem = (event, img) => {
   let element = event.target;
   element.classList.toggle('added');
- 
+
   let item = sliders.indexOf(img);
-  
+
   if (item === -1) {
     sliders.push(img);
   } else {
     sliders.splice(item, 1);
   }
-  
+
 }
 var timer
 const createSlider = () => {
@@ -78,7 +85,7 @@ const createSlider = () => {
   // hide image aria
   imagesArea.style.display = 'none';
   const duration = document.getElementById('duration').value || 1000;
-  if(duration < 0){
+  if (duration < 0) {
     alert('something went wrong!!');
     return;
   }
@@ -136,10 +143,9 @@ sliderBtn.addEventListener('click', function () {
 })
 
 //spinner --------------
-const showSpinner = () =>{
+const showSpinner = () => {
   const spinner = document.getElementById('spinner-item');
   spinner.classList.toggle('d-none');
   const images = document.getElementById('slider-image');
   images.classList.toggle('d-none');
 }
-
